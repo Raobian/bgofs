@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "./pkg/pb;proto";
+
+message Chunk {
+    uint64 Chkid = 1;
+    uint32 Offset = 2;
+    uint32 Length = 3;
+    bytes Data = 4;
+}
+
+message ChunkResponse {
+    int32 Code = 1;
+    string Msg = 2;
+}
+
+service VolumeService {
+    rpc Upload (stream Chunk) returns (ChunkResponse);
+}
