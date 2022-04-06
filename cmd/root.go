@@ -9,7 +9,7 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "github.com/Raobian/bgofs",
+	Use:   "bgofs",
 	Short: "A brief description",
 	Long:  `A longer description`,
 }

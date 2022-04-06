@@ -27,17 +27,13 @@ func Run(fname string) {
 
 	// 建立gRPC连接
 	vc = pb.NewVolumeServiceClient(conn)
-	Upload()
+	Upload(fname)
 }
 
-func Upload() {
-	f := "test_file"
-	file, err := os.Open(f)
+func Upload(fname string) {
+	log.Printf("fname:%s opening...", fname)
+	file, err := os.Open(fname)
 	defer file.Close()
-
-	fst, err := file.Stat()
-	fsize := fst.Size()
-	log.Printf("-- bian -- fsize:%d", fsize)
 
 	stream, err := vc.Upload(context.Background())
 	if err != nil {
