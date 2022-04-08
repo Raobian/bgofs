@@ -1,9 +1,9 @@
 package server
 
-// type Chkid struct {
-// 	volid uint32
-// 	idx   uint32
-// }
+type Chkid struct {
+	volid uint32
+	idx   uint32
+}
 
 type Chunk struct {
 	// id Chkid

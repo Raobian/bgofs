@@ -19,6 +19,18 @@ message ChunkResponse {
     string Msg = 2;
 }
 
+message VolumeInfo {
+    string name = 1;
+    uint32 size = 2;
+}
+
+message VolumeReq {
+    VolumeInfo info = 1;
+    uint32 Offset = 2;
+    uint32 Length = 3;
+    bytes Data = 4;
+}
+
 service VolumeService {
     rpc Upload (stream Chunk) returns (ChunkResponse);
 }
