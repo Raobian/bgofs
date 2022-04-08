@@ -3,10 +3,10 @@ package client
 import (
 	"context"
 	"io"
-	"log"
 	"os"
 
 	"github.com/Raobian/bgofs/pkg/common"
+	"github.com/Raobian/bgofs/pkg/common/log"
 	pb "github.com/Raobian/bgofs/pkg/pb"
 
 	"google.golang.org/grpc"
@@ -21,7 +21,7 @@ func Run(fname string) {
 	// 连接服务器
 	conn, err := grpc.Dial(Address, grpc.WithInsecure())
 	if err != nil {
-		log.Fatalf("net.Connect err: %v", err)
+		log.DFATAL("net.Connect err: %v", err)
 	}
 	defer conn.Close()
 
@@ -31,13 +31,13 @@ func Run(fname string) {
 }
 
 func Upload(fname string) {
-	log.Printf("fname:%s opening...", fname)
+	log.DINFO("fname:%s opening...", fname)
 	file, err := os.Open(fname)
 	defer file.Close()
 
 	stream, err := vc.Upload(context.Background())
 	if err != nil {
-		log.Fatalf("Upload list err: %v", err)
+		log.DFATAL("Upload list err: %v", err)
 	}
 	defer stream.CloseSend()
 
@@ -50,13 +50,15 @@ func Upload(fname string) {
 				err = nil
 				break
 			}
-			log.Fatalf("failed to read")
+			log.DFATAL("failed to read")
 			return
 		}
 
-		chkid := (uint64(1) << 32) & uint64(cid)
 		stream.Send(&pb.Chunk{
-			Chkid:  chkid,
+			Chkid: &pb.Chkid{
+				Volid: 1,
+				Id:    cid,
+			},
 			Offset: 0,
 			Length: uint32(n),
 			Data:   []byte(buf),
@@ -66,13 +68,13 @@ func Upload(fname string) {
 			break
 		}
 		if err != nil {
-			log.Fatalf("stream request err: %v", err)
+			log.DFATAL("stream request err: %v", err)
 		}
 	}
 
 	res, err := stream.CloseAndRecv()
 	if err != nil {
-		log.Fatalf("Upload get response err: %v", err)
+		log.DFATAL("Upload get response err: %v", err)
 	}
-	log.Printf("--- bian -- recv: code:%d msg:%s", res.Code, res.Msg)
+	log.DINFO("--- bian -- recv: code:%d msg:%s", res.Code, res.Msg)
 }

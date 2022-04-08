@@ -2,10 +2,10 @@ package kvengine
 
 import (
 	"context"
-	"fmt"
 	"time"
 
-	"github.com/Raobian/bgofs/pkg/log"
+	"github.com/Raobian/bgofs/pkg/common/log"
+	"github.com/coreos/etcd/mvcc/mvccpb"
 
 	"go.etcd.io/etcd/clientv3"
 )
@@ -20,7 +20,7 @@ type KVEngineEtcd struct {
 	cli *clientv3.Client
 }
 
-func NewKV() *KVEngineEtcd {
+func NewETCDKV() *KVEngineEtcd {
 	config := clientv3.Config{
 		Endpoints:   []string{Endp},
 		DialTimeout: Timeout,
@@ -90,10 +90,19 @@ func (kv *KVEngineEtcd) Delete(key string) error {
 }
 
 func (kv *KVEngineEtcd) Watch(prefix string) {
-	rch := kv.cli.Watch(context.Background(), prefix)
+	rch := kv.cli.Watch(context.Background(), prefix, clientv3.WithPrefix())
+	log.DINFO("Watching prefix:%s", prefix)
 	for wresp := range rch {
 		for _, ev := range wresp.Events {
-			fmt.Printf("Type: %s Key:%s Value:%s\n", ev.Type, ev.Kv.Key, ev.Kv.Value)
+			log.DINFO("Type: %s Key:%s Value:%s\n", ev.Type, ev.Kv.Key, ev.Kv.Value)
+			switch ev.Type {
+			case mvccpb.PUT:
+				break
+			case mvccpb.DELETE:
+				break
+			default:
+				break
+			}
 		}
 	}
 }

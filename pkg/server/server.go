@@ -25,7 +25,7 @@ const (
 func Server() {
 	listener, err := net.Listen(Network, Address)
 	if err != nil {
-		log.DFATALf("net.Listen err: %v", err)
+		log.DFATAL("net.Listen err: %v", err)
 	}
 	log.DINFO(Address + " net.Listing...")
 
@@ -35,10 +35,10 @@ func Server() {
 	grpcServer := grpc.NewServer(grpcOpts...)
 
 	// 在gRPC服务器注册我们的服务
-	pb.RegisterVolumeServiceServer(grpcServer, &VolumeService{})
+	pb.RegisterVolumeServiceServer(grpcServer, NewVolumeService())
 
 	err = grpcServer.Serve(listener)
 	if err != nil {
-		log.DFATALf("grpcServer.Serve err: %v", err)
+		log.DFATAL("grpcServer.Serve err: %v", err)
 	}
 }

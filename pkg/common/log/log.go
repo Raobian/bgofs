@@ -60,50 +60,50 @@ func SetJsonFormat() {
 	logrus.SetFormatter(&logrus.JSONFormatter{})
 }
 
-func DBUG(i ...interface{}) {
+func Dbug(i ...interface{}) {
 	l.Debug(i...)
 }
 
-func DINFO(i ...interface{}) {
+func Dinfo(i ...interface{}) {
 	l.Info(i...)
 }
 
-func DWARN(i ...interface{}) {
+func Dwarn(i ...interface{}) {
 	l.Warn(i...)
 }
 
-func DERROR(i ...interface{}) {
+func Derror(i ...interface{}) {
 	l.Error(i...)
 }
 
-func DFATAL(i ...interface{}) {
+func Dfatal(i ...interface{}) {
 	l.Fatal(i...)
 }
 
-func DPANIC(i ...interface{}) {
+func Dpanic(i ...interface{}) {
 	l.Panic(i...)
 }
 
-func DBUGf(f string, i ...interface{}) {
+func DBUG(f string, i ...interface{}) {
 	l.Debugf(f, i...)
 }
 
-func DINFOf(f string, i ...interface{}) {
+func DINFO(f string, i ...interface{}) {
 	l.Infof(f, i...)
 }
 
-func DWARNf(f string, i ...interface{}) {
+func DWARN(f string, i ...interface{}) {
 	l.Warnf(f, i...)
 }
 
-func DERRORf(f string, i ...interface{}) {
+func DERROR(f string, i ...interface{}) {
 	l.Errorf(f, i...)
 }
 
-func DFATALf(f string, i ...interface{}) {
+func DFATAL(f string, i ...interface{}) {
 	l.Fatalf(f, i...)
 }
 
-func DPANICf(f string, i ...interface{}) {
+func DPANIC(f string, i ...interface{}) {
 	l.Panicf(f, i...)
 }

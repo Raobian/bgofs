@@ -2,8 +2,13 @@ syntax = "proto3";
 
 option go_package = "./pkg/pb;proto";
 
+message Chkid {
+    uint32 volid = 1;
+    uint32 id = 2;
+}
+
 message Chunk {
-    uint64 Chkid = 1;
+    Chkid Chkid = 1;
     uint32 Offset = 2;
     uint32 Length = 3;
     bytes Data = 4;

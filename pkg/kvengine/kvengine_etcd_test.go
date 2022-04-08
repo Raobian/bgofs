@@ -5,7 +5,7 @@ import (
 )
 
 func TestKV(t *testing.T) {
-	kv := NewKV()
+	kv := NewETCDKV()
 	if kv == nil {
 		t.Fatal("new kv failed")
 	}

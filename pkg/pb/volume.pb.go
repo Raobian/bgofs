@@ -26,8 +26,63 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type Chkid struct {
+	Volid                uint32   `protobuf:"varint,1,opt,name=volid,proto3" json:"volid,omitempty"`
+	Id                   uint32   `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Chkid) Reset()         { *m = Chkid{} }
+func (m *Chkid) String() string { return proto.CompactTextString(m) }
+func (*Chkid) ProtoMessage()    {}
+func (*Chkid) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ed47c37037b94f4e, []int{0}
+}
+func (m *Chkid) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *Chkid) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_Chkid.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *Chkid) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Chkid.Merge(m, src)
+}
+func (m *Chkid) XXX_Size() int {
+	return m.Size()
+}
+func (m *Chkid) XXX_DiscardUnknown() {
+	xxx_messageInfo_Chkid.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Chkid proto.InternalMessageInfo
+
+func (m *Chkid) GetVolid() uint32 {
+	if m != nil {
+		return m.Volid
+	}
+	return 0
+}
+
+func (m *Chkid) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
 type Chunk struct {
-	Chkid                uint64   `protobuf:"varint,1,opt,name=Chkid,proto3" json:"Chkid,omitempty"`
+	Chkid                *Chkid   `protobuf:"bytes,1,opt,name=Chkid,proto3" json:"Chkid,omitempty"`
 	Offset               uint32   `protobuf:"varint,2,opt,name=Offset,proto3" json:"Offset,omitempty"`
 	Length               uint32   `protobuf:"varint,3,opt,name=Length,proto3" json:"Length,omitempty"`
 	Data                 []byte   `protobuf:"bytes,4,opt,name=Data,proto3" json:"Data,omitempty"`
@@ -40,7 +95,7 @@ func (m *Chunk) Reset()         { *m = Chunk{} }
 func (m *Chunk) String() string { return proto.CompactTextString(m) }
 func (*Chunk) ProtoMessage()    {}
 func (*Chunk) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed47c37037b94f4e, []int{0}
+	return fileDescriptor_ed47c37037b94f4e, []int{1}
 }
 func (m *Chunk) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -69,11 +124,11 @@ func (m *Chunk) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Chunk proto.InternalMessageInfo
 
-func (m *Chunk) GetChkid() uint64 {
+func (m *Chunk) GetChkid() *Chkid {
 	if m != nil {
 		return m.Chkid
 	}
-	return 0
+	return nil
 }
 
 func (m *Chunk) GetOffset() uint32 {
@@ -109,7 +164,7 @@ func (m *ChunkResponse) Reset()         { *m = ChunkResponse{} }
 func (m *ChunkResponse) String() string { return proto.CompactTextString(m) }
 func (*ChunkResponse) ProtoMessage()    {}
 func (*ChunkResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed47c37037b94f4e, []int{1}
+	return fileDescriptor_ed47c37037b94f4e, []int{2}
 }
 func (m *ChunkResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -153,6 +208,7 @@ func (m *ChunkResponse) GetMsg() string {
 }
 
 func init() {
+	proto.RegisterType((*Chkid)(nil), "Chkid")
 	proto.RegisterType((*Chunk)(nil), "Chunk")
 	proto.RegisterType((*ChunkResponse)(nil), "ChunkResponse")
 }
@@ -160,22 +216,24 @@ func init() {
 func init() { proto.RegisterFile("pkg/pb/volume.proto", fileDescriptor_ed47c37037b94f4e) }
 
 var fileDescriptor_ed47c37037b94f4e = []byte{
-	// 227 bytes of a gzipped FileDescriptorProto
+	// 260 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x2e, 0xc8, 0x4e, 0xd7,
 	0x2f, 0x48, 0xd2, 0x2f, 0xcb, 0xcf, 0x29, 0xcd, 0x4d, 0xd5, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x57,
-	0x4a, 0xe4, 0x62, 0x75, 0xce, 0x28, 0xcd, 0xcb, 0x16, 0x12, 0x01, 0x31, 0xb2, 0x33, 0x53, 0x24,
-	0x18, 0x15, 0x18, 0x35, 0x58, 0x82, 0x20, 0x1c, 0x21, 0x31, 0x2e, 0x36, 0xff, 0xb4, 0xb4, 0xe2,
-	0xd4, 0x12, 0x09, 0x26, 0x05, 0x46, 0x0d, 0xde, 0x20, 0x28, 0x0f, 0x24, 0xee, 0x93, 0x9a, 0x97,
-	0x5e, 0x92, 0x21, 0xc1, 0x0c, 0x11, 0x87, 0xf0, 0x84, 0x84, 0xb8, 0x58, 0x5c, 0x12, 0x4b, 0x12,
-	0x25, 0x58, 0x14, 0x18, 0x35, 0x78, 0x82, 0xc0, 0x6c, 0x25, 0x53, 0x2e, 0x5e, 0xb0, 0x15, 0x41,
-	0xa9, 0xc5, 0x05, 0xf9, 0x79, 0xc5, 0xa9, 0x20, 0x45, 0xce, 0xf9, 0x29, 0xa9, 0x60, 0x9b, 0x58,
-	0x83, 0xc0, 0x6c, 0x21, 0x01, 0x2e, 0x66, 0xdf, 0xe2, 0x74, 0xb0, 0x2d, 0x9c, 0x41, 0x20, 0xa6,
-	0x91, 0x31, 0x17, 0x6f, 0x18, 0xd8, 0xa5, 0xc1, 0xa9, 0x45, 0x65, 0x99, 0xc9, 0xa9, 0x42, 0x4a,
-	0x5c, 0x6c, 0xa1, 0x05, 0x39, 0xf9, 0x89, 0x29, 0x42, 0x6c, 0x7a, 0x60, 0x03, 0xa5, 0xf8, 0xf4,
-	0x50, 0x0c, 0xd6, 0x60, 0x74, 0x52, 0x38, 0xf1, 0x48, 0x8e, 0xf1, 0xc2, 0x23, 0x39, 0xc6, 0x07,
-	0x8f, 0xe4, 0x18, 0x67, 0x3c, 0x96, 0x63, 0x88, 0xe2, 0xd3, 0xd3, 0x87, 0xf8, 0xdb, 0x1a, 0xec,
-	0xe1, 0x24, 0x36, 0x30, 0x65, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0xd3, 0xa4, 0x5e, 0x30, 0x0e,
-	0x01, 0x00, 0x00,
+	0xd2, 0xe5, 0x62, 0x75, 0xce, 0xc8, 0xce, 0x4c, 0x11, 0x12, 0xe1, 0x62, 0x2d, 0xcb, 0xcf, 0xc9,
+	0x4c, 0x91, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x0d, 0x82, 0x70, 0x84, 0xf8, 0xb8, 0x98, 0x32, 0x53,
+	0x24, 0x98, 0xc0, 0x42, 0x4c, 0x99, 0x29, 0x4a, 0x99, 0x20, 0xe5, 0xa5, 0x79, 0xd9, 0x42, 0x32,
+	0x50, 0x7d, 0x60, 0xe5, 0xdc, 0x46, 0x6c, 0x7a, 0x60, 0x5e, 0x10, 0xd4, 0x30, 0x31, 0x2e, 0x36,
+	0xff, 0xb4, 0xb4, 0xe2, 0xd4, 0x12, 0xa8, 0x56, 0x28, 0x0f, 0x24, 0xee, 0x93, 0x9a, 0x97, 0x5e,
+	0x92, 0x21, 0xc1, 0x0c, 0x11, 0x87, 0xf0, 0x84, 0x84, 0xb8, 0x58, 0x5c, 0x12, 0x4b, 0x12, 0x25,
+	0x58, 0x14, 0x18, 0x35, 0x78, 0x82, 0xc0, 0x6c, 0x25, 0x53, 0x2e, 0x5e, 0xb0, 0x55, 0x41, 0xa9,
+	0xc5, 0x05, 0xf9, 0x79, 0xc5, 0xa9, 0x20, 0x45, 0xce, 0xf9, 0x29, 0xa9, 0x60, 0x1b, 0x59, 0x83,
+	0xc0, 0x6c, 0x21, 0x01, 0x2e, 0x66, 0xdf, 0xe2, 0x74, 0xb0, 0x2d, 0x9c, 0x41, 0x20, 0xa6, 0x91,
+	0x31, 0x17, 0x6f, 0x18, 0xd8, 0x83, 0xc1, 0xa9, 0x45, 0x65, 0x99, 0xc9, 0xa9, 0x42, 0x4a, 0x5c,
+	0x6c, 0xa1, 0x05, 0x39, 0xf9, 0x89, 0x29, 0x42, 0x20, 0x47, 0x96, 0xe6, 0x65, 0x4b, 0xf1, 0xe9,
+	0xa1, 0x18, 0xac, 0xc1, 0xe8, 0xa4, 0x70, 0xe2, 0x91, 0x1c, 0xe3, 0x85, 0x47, 0x72, 0x8c, 0x0f,
+	0x1e, 0xc9, 0x31, 0xce, 0x78, 0x2c, 0xc7, 0x10, 0xc5, 0xa7, 0xa7, 0x0f, 0x09, 0x2e, 0x6b, 0x70,
+	0x38, 0x25, 0xb1, 0x81, 0x29, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0x46, 0x34, 0xf8, 0x62,
+	0x45, 0x01, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -292,6 +350,43 @@ var _VolumeService_serviceDesc = grpc.ServiceDesc{
 	Metadata: "pkg/pb/volume.proto",
 }
 
+func (m *Chkid) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *Chkid) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *Chkid) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.Id != 0 {
+		i = encodeVarintVolume(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.Volid != 0 {
+		i = encodeVarintVolume(dAtA, i, uint64(m.Volid))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
 func (m *Chunk) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -333,10 +428,17 @@ func (m *Chunk) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x10
 	}
-	if m.Chkid != 0 {
-		i = encodeVarintVolume(dAtA, i, uint64(m.Chkid))
+	if m.Chkid != nil {
+		{
+			size, err := m.Chkid.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintVolume(dAtA, i, uint64(size))
+		}
 		i--
-		dAtA[i] = 0x8
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -391,14 +493,33 @@ func encodeVarintVolume(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *Chkid) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Volid != 0 {
+		n += 1 + sovVolume(uint64(m.Volid))
+	}
+	if m.Id != 0 {
+		n += 1 + sovVolume(uint64(m.Id))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
 func (m *Chunk) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	if m.Chkid != 0 {
-		n += 1 + sovVolume(uint64(m.Chkid))
+	if m.Chkid != nil {
+		l = m.Chkid.Size()
+		n += 1 + l + sovVolume(uint64(l))
 	}
 	if m.Offset != 0 {
 		n += 1 + sovVolume(uint64(m.Offset))
@@ -441,6 +562,95 @@ func sovVolume(x uint64) (n int) {
 func sozVolume(x uint64) (n int) {
 	return sovVolume(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
+func (m *Chkid) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowVolume
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Chkid: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Chkid: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Volid", wireType)
+			}
+			m.Volid = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowVolume
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Volid |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowVolume
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipVolume(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthVolume
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
 func (m *Chunk) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -471,10 +681,10 @@ func (m *Chunk) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Chkid", wireType)
 			}
-			m.Chkid = 0
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowVolume
@@ -484,11 +694,28 @@ func (m *Chunk) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Chkid |= uint64(b&0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			if msglen < 0 {
+				return ErrInvalidLengthVolume
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthVolume
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Chkid == nil {
+				m.Chkid = &Chkid{}
+			}
+			if err := m.Chkid.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Offset", wireType)
