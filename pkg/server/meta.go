@@ -23,8 +23,10 @@ func GetMeta() *Meta {
 	return meta
 }
 
+const volume_prefix = "volume/"
+
 func id2Key(id uint64) string {
-	return fmt.Sprintf("volume_%08x", id)
+	return fmt.Sprintf("%s%08x", volume_prefix, id)
 }
 
 func GetVolume(id uint64) ([]byte, error) {
@@ -33,4 +35,8 @@ func GetVolume(id uint64) ([]byte, error) {
 
 func SetVolume(id uint64, info []byte) error {
 	return meta.kv.Set(id2Key(id), info)
+}
+
+func ListVolume() {
+	meta.kv.Get(volume_prefix + "*")
 }

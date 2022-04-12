@@ -15,22 +15,16 @@ import (
 // Address 连接地址
 const Address string = ":8000"
 
-var vc pb.VolumeServiceClient
+// var vc pb.VolumeServiceClient
 
-func Run(fname string) {
-	// 连接服务器
+func Upload(fname string) {
 	conn, err := grpc.Dial(Address, grpc.WithInsecure())
 	if err != nil {
 		log.DFATAL("net.Connect err: %v", err)
 	}
 	defer conn.Close()
+	vc := pb.NewVolumeServiceClient(conn)
 
-	// 建立gRPC连接
-	vc = pb.NewVolumeServiceClient(conn)
-	Upload(fname)
-}
-
-func Upload(fname string) {
 	log.DINFO("fname:%s opening...", fname)
 	file, err := os.Open(fname)
 	defer file.Close()

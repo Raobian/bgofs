@@ -2,6 +2,7 @@ package kvengine
 
 import (
 	"context"
+	"errors"
 
 	"github.com/Raobian/bgofs/pkg/common/log"
 	"github.com/go-redis/redis/v8"
@@ -50,4 +51,20 @@ func (kv *KVEngineRedis) Get(key string) ([]byte, error) {
 
 func (kv *KVEngineRedis) Delete(key string) error {
 	return kv.cli.Del(context.Background(), key).Err()
+}
+
+func (kv *KVEngineRedis) List(prefix string) ([][]byte, error) {
+	var res [][]byte
+	var cursor uint64
+	for {
+		keys, err: = kv.cli.Scan(context.Background(), cursor, prefix, 100).Result()
+		if err != nil {
+			log.DFATAL("scan failed %v", err)
+			return nil, err
+		}
+		for _, v := range keys {
+			res = append(res, )
+		}
+	}
+		// return kv.cli.Keys(context.Background(), prefix).Result()
 }

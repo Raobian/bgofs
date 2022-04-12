@@ -13,7 +13,7 @@ var uploadCmd = &cobra.Command{
 	Short: "Upload",
 	Long:  `A longer description Upload`,
 	Run: func(cmd *cobra.Command, args []string) {
-		client.Run(Fname)
+		client.Upload(Fname)
 	},
 }
 

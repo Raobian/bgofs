@@ -1,35 +1,32 @@
 package server
 
-type VolumeInfo struct {
+type Volume struct {
 	Id   uint64
 	Size uint64
 	Name string
-}
 
-type Volume struct {
-	Info     VolumeInfo
 	ChunkMap map[uint64]int
 }
 
-type VolumeService struct {
+type VolumeCtl struct {
 }
 
-func (vs *VolumeService) VolumeCreate(name string) *Volume {
+func (volctl *VolumeCtl) VolumeCreate(name string) *Volume {
 	return nil
 }
 
-func (vs *VolumeService) VolumeDelete(vol *Volume) error {
+func (volctl *VolumeCtl) VolumeDelete(vol *Volume) error {
 	return nil
 }
 
-func (vs *VolumeService) VolumeList() {
+func (volctl *VolumeCtl) VolumeList() {
 
 }
 
-func (vol *Volume) Read() {
+func (volctl *VolumeCtl) Read() {
 
 }
 
-func (vol *Volume) Write() {
+func (volctl *VolumeCtl) Write() {
 
 }
