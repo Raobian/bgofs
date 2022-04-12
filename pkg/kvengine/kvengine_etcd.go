@@ -89,6 +89,20 @@ func (kv *KVEngineEtcd) Delete(key string) error {
 	return err
 }
 
+func (kv *KVEngineEtcd) List(prefix string) ([]string, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
+	resp, err := kv.cli.Get(ctx, prefix, clientv3.WithPrefix(), clientv3.WithSort(clientv3.SortByKey, clientv3.SortDescend))
+	cancel()
+	if err != nil {
+		log.DFATAL("List failed %v", err)
+	}
+	var res []string
+	for _, ev := range resp.Kvs {
+		res = append(res, string(ev.Key))
+	}
+	return res, nil
+}
+
 func (kv *KVEngineEtcd) Watch(prefix string) {
 	rch := kv.cli.Watch(context.Background(), prefix, clientv3.WithPrefix())
 	log.DINFO("Watching prefix:%s", prefix)

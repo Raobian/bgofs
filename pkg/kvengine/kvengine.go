@@ -9,6 +9,7 @@ type KVEngine interface {
 	Set(key string, value []byte) error
 	Get(key string) ([]byte, error)
 	Delete(key string) error
+	List(prefix string) ([]string, error)
 }
 
 type Iterator interface {
