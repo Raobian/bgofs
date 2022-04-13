@@ -1,6 +1,7 @@
 package server
 
 import (
+	"context"
 	"io"
 	"net"
 
@@ -10,6 +11,8 @@ import (
 	pb "github.com/Raobian/bgofs/pkg/pb"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 func Init() {
@@ -26,12 +29,26 @@ const (
 type VolumeService struct {
 }
 
-func (vs *VolumeService) Upload(srv pb.VolumeService_UploadServer) error {
+func (vs *VolumeService) Create(ctx context.Context, req *pb.VolumeInfo) (*pb.VolumeCtlResponse, error) {
+
+	return &pb.VolumeCtlResponse{
+		Code:  0,
+		Msg:   "ok",
+		Volid: 1,
+	}, nil
+}
+
+func (vs *VolumeService) Remove(ctx context.Context, req *pb.VolumeInfo) (*pb.VolumeCtlResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Remove not implemented")
+}
+
+func (vs *VolumeService) Write(srv pb.VolumeService_WriteServer) error {
+	log.DINFO("write start")
 	for {
 		res, err := srv.Recv()
 		if err == io.EOF {
-			log.DINFO("-- bian -- eof")
-			return srv.SendAndClose(&pb.ChunkResponse{
+			log.DINFO("write end")
+			return srv.SendAndClose(&pb.VolumeResponse{
 				Code: 0,
 				Msg:  "ok",
 			})
@@ -39,11 +56,12 @@ func (vs *VolumeService) Upload(srv pb.VolumeService_UploadServer) error {
 		if err != nil {
 			return err
 		}
-		log.DINFO("server recv:%x off:%d len:%d Data:%s\n", res.Chkid, res.Offset, res.Length, string(res.Data))
-		// chkid := Chkid{
-		// 	volid: uint32(res.Chkid),
-		// }
+		log.DINFO("server recv:%x off:%d len:%d Data:%s\n", res.Volid, res.Offset, res.Length, string(res.Data))
 	}
+}
+
+func (vs *VolumeService) Read(srv pb.VolumeService_ReadServer) error {
+	return status.Errorf(codes.Unimplemented, "method Read not implemented")
 }
 
 func Server() {

@@ -4,6 +4,7 @@ import (
 	"context"
 	"io"
 	"os"
+	"strings"
 
 	"github.com/Raobian/bgofs/pkg/common"
 	"github.com/Raobian/bgofs/pkg/common/log"
@@ -15,28 +16,60 @@ import (
 // Address 连接地址
 const Address string = ":8000"
 
-// var vc pb.VolumeServiceClient
+var vc pb.VolumeServiceClient
+var conn *grpc.ClientConn
 
-func Upload(fname string) {
-	conn, err := grpc.Dial(Address, grpc.WithInsecure())
+func connectToServer() pb.VolumeServiceClient {
+	var err error
+	conn, err = grpc.Dial(Address, grpc.WithInsecure())
 	if err != nil {
 		log.DFATAL("net.Connect err: %v", err)
 	}
-	defer conn.Close()
-	vc := pb.NewVolumeServiceClient(conn)
+	vc = pb.NewVolumeServiceClient(conn)
+	return vc
+}
+
+func closeClient() {
+	conn.Close()
+}
+
+func Upload(fname string) {
+	connectToServer()
+	defer closeClient()
 
 	log.DINFO("fname:%s opening...", fname)
 	file, err := os.Open(fname)
+	if err != nil {
+		log.DFATAL("Upload file:%s open failed err: %v", fname, err)
+	}
 	defer file.Close()
 
-	stream, err := vc.Upload(context.Background())
+	finfo, err := file.Stat()
 	if err != nil {
-		log.DFATAL("Upload list err: %v", err)
+		log.DFATAL("Upload file:%s stat failed err: %v", fname, err)
+	}
+	size := finfo.Size()
+
+	sname := strings.Split(fname, "/")
+	filename := sname[len(sname)-1]
+
+	res, err := vc.Create(context.Background(), &pb.VolumeInfo{
+		Name:  filename,
+		Size_: uint64(size),
+	})
+	if err != nil {
+		log.DFATAL("Upload file:%s rpc create failed err: %v", fname, err)
+	}
+
+	stream, err := vc.Write(context.Background())
+	if err != nil {
+		log.DFATAL("Upload file:%s rpc write stream failed err: %v", fname, err)
 	}
 	defer stream.CloseSend()
 
 	buf := make([]byte, common.CHKSIZE)
-	cid := uint32(0)
+	var off uint64
+	off = 0
 	for {
 		n, err := file.Read(buf)
 		if err != nil {
@@ -44,31 +77,32 @@ func Upload(fname string) {
 				err = nil
 				break
 			}
-			log.DFATAL("failed to read")
 			return
 		}
 
-		stream.Send(&pb.Chunk{
-			Chkid: &pb.Chkid{
-				Volid: 1,
-				Id:    cid,
-			},
-			Offset: 0,
+		vio := &pb.VolumeIO{
+			Volid:  res.Volid,
+			Offset: off,
 			Length: uint32(n),
-			Data:   []byte(buf),
-		})
+			Data:   buf,
+		}
+		log.DINFO("write to server vol:%v offset:%v len:%v", vio.Volid, vio.Offset, vio.Length)
+
+		err = stream.Send(vio)
 
 		if err == io.EOF {
 			break
 		}
+
 		if err != nil {
-			log.DFATAL("stream request err: %v", err)
+			log.DFATAL("stream send volid:%v off:%v len:%v failed err:%v", res.Volid, off, n, err)
 		}
+		off += uint64(n)
 	}
 
-	res, err := stream.CloseAndRecv()
+	res1, err := stream.CloseAndRecv()
 	if err != nil {
 		log.DFATAL("Upload get response err: %v", err)
 	}
-	log.DINFO("--- bian -- recv: code:%d msg:%s", res.Code, res.Msg)
+	log.DINFO("--- bian -- recv: code:%d msg:%s", res1.Code, res1.Msg)
 }

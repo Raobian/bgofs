@@ -2,35 +2,32 @@ syntax = "proto3";
 
 option go_package = "./pkg/pb;proto";
 
-message Chkid {
-    uint32 volid = 1;
-    uint32 id = 2;
+message VolumeInfo {
+    string name = 1;
+    uint64 size = 2;
 }
 
-message Chunk {
-    Chkid Chkid = 1;
-    uint32 Offset = 2;
-    uint32 Length = 3;
-    bytes Data = 4;
-}
-
-message ChunkResponse {
+message VolumeResponse {
     int32 Code = 1;
     string Msg = 2;
 }
 
-message VolumeInfo {
-    string name = 1;
-    uint32 size = 2;
+message VolumeCtlResponse {
+    int32 Code = 1;
+    string Msg = 2;
+    uint32 Volid = 3;
 }
 
-message VolumeReq {
-    VolumeInfo info = 1;
-    uint32 Offset = 2;
+message VolumeIO {
+    uint32 Volid = 1;
+    uint64 Offset = 2;
     uint32 Length = 3;
     bytes Data = 4;
 }
 
 service VolumeService {
-    rpc Upload (stream Chunk) returns (ChunkResponse);
+    rpc Create (VolumeInfo) returns (VolumeCtlResponse);
+    rpc Remove (VolumeInfo) returns (VolumeCtlResponse);
+    rpc Write (stream VolumeIO) returns (VolumeResponse);
+    rpc Read (stream VolumeIO) returns (VolumeResponse);
 }

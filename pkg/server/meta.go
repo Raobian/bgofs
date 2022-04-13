@@ -2,7 +2,10 @@ package server
 
 import (
 	"fmt"
+	"strconv"
+	"strings"
 
+	"github.com/Raobian/bgofs/pkg/common/log"
 	"github.com/Raobian/bgofs/pkg/kvengine"
 )
 
@@ -38,5 +41,22 @@ func SetVolume(id uint64, info []byte) error {
 }
 
 func ListVolume() {
-	meta.kv.Get(volume_prefix + "*")
+	ks, err := meta.kv.List(volume_prefix)
+	if err != nil {
+		log.DFATAL("list failed %v", err)
+	}
+	for _, k := range ks {
+		sk := strings.Split(k, volume_prefix)
+		id, err := strconv.ParseUint(sk[len(sk)-1], 16, 64)
+		if err != nil {
+			log.DFATAL("bad volume: %s", sk)
+		}
+
+		log.DINFO("get id: %08x", id)
+		_, err = meta.kv.Get(k)
+		if err != nil {
+			log.DFATAL("get %s info failed err:%v", k, err)
+		}
+
+	}
 }

@@ -26,190 +26,9 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-type Chkid struct {
-	Volid                uint32   `protobuf:"varint,1,opt,name=volid,proto3" json:"volid,omitempty"`
-	Id                   uint32   `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Chkid) Reset()         { *m = Chkid{} }
-func (m *Chkid) String() string { return proto.CompactTextString(m) }
-func (*Chkid) ProtoMessage()    {}
-func (*Chkid) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed47c37037b94f4e, []int{0}
-}
-func (m *Chkid) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *Chkid) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_Chkid.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *Chkid) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Chkid.Merge(m, src)
-}
-func (m *Chkid) XXX_Size() int {
-	return m.Size()
-}
-func (m *Chkid) XXX_DiscardUnknown() {
-	xxx_messageInfo_Chkid.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Chkid proto.InternalMessageInfo
-
-func (m *Chkid) GetVolid() uint32 {
-	if m != nil {
-		return m.Volid
-	}
-	return 0
-}
-
-func (m *Chkid) GetId() uint32 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
-}
-
-type Chunk struct {
-	Chkid                *Chkid   `protobuf:"bytes,1,opt,name=Chkid,proto3" json:"Chkid,omitempty"`
-	Offset               uint32   `protobuf:"varint,2,opt,name=Offset,proto3" json:"Offset,omitempty"`
-	Length               uint32   `protobuf:"varint,3,opt,name=Length,proto3" json:"Length,omitempty"`
-	Data                 []byte   `protobuf:"bytes,4,opt,name=Data,proto3" json:"Data,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Chunk) Reset()         { *m = Chunk{} }
-func (m *Chunk) String() string { return proto.CompactTextString(m) }
-func (*Chunk) ProtoMessage()    {}
-func (*Chunk) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed47c37037b94f4e, []int{1}
-}
-func (m *Chunk) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *Chunk) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_Chunk.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *Chunk) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Chunk.Merge(m, src)
-}
-func (m *Chunk) XXX_Size() int {
-	return m.Size()
-}
-func (m *Chunk) XXX_DiscardUnknown() {
-	xxx_messageInfo_Chunk.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Chunk proto.InternalMessageInfo
-
-func (m *Chunk) GetChkid() *Chkid {
-	if m != nil {
-		return m.Chkid
-	}
-	return nil
-}
-
-func (m *Chunk) GetOffset() uint32 {
-	if m != nil {
-		return m.Offset
-	}
-	return 0
-}
-
-func (m *Chunk) GetLength() uint32 {
-	if m != nil {
-		return m.Length
-	}
-	return 0
-}
-
-func (m *Chunk) GetData() []byte {
-	if m != nil {
-		return m.Data
-	}
-	return nil
-}
-
-type ChunkResponse struct {
-	Code                 int32    `protobuf:"varint,1,opt,name=Code,proto3" json:"Code,omitempty"`
-	Msg                  string   `protobuf:"bytes,2,opt,name=Msg,proto3" json:"Msg,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ChunkResponse) Reset()         { *m = ChunkResponse{} }
-func (m *ChunkResponse) String() string { return proto.CompactTextString(m) }
-func (*ChunkResponse) ProtoMessage()    {}
-func (*ChunkResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed47c37037b94f4e, []int{2}
-}
-func (m *ChunkResponse) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *ChunkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_ChunkResponse.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *ChunkResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ChunkResponse.Merge(m, src)
-}
-func (m *ChunkResponse) XXX_Size() int {
-	return m.Size()
-}
-func (m *ChunkResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ChunkResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ChunkResponse proto.InternalMessageInfo
-
-func (m *ChunkResponse) GetCode() int32 {
-	if m != nil {
-		return m.Code
-	}
-	return 0
-}
-
-func (m *ChunkResponse) GetMsg() string {
-	if m != nil {
-		return m.Msg
-	}
-	return ""
-}
-
 type VolumeInfo struct {
 	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Size_                uint32   `protobuf:"varint,2,opt,name=size,proto3" json:"size,omitempty"`
+	Size_                uint64   `protobuf:"varint,2,opt,name=size,proto3" json:"size,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -219,7 +38,7 @@ func (m *VolumeInfo) Reset()         { *m = VolumeInfo{} }
 func (m *VolumeInfo) String() string { return proto.CompactTextString(m) }
 func (*VolumeInfo) ProtoMessage()    {}
 func (*VolumeInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed47c37037b94f4e, []int{3}
+	return fileDescriptor_ed47c37037b94f4e, []int{0}
 }
 func (m *VolumeInfo) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -255,35 +74,33 @@ func (m *VolumeInfo) GetName() string {
 	return ""
 }
 
-func (m *VolumeInfo) GetSize_() uint32 {
+func (m *VolumeInfo) GetSize_() uint64 {
 	if m != nil {
 		return m.Size_
 	}
 	return 0
 }
 
-type VolumeReq struct {
-	Info                 *VolumeInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"`
-	Offset               uint32      `protobuf:"varint,2,opt,name=Offset,proto3" json:"Offset,omitempty"`
-	Length               uint32      `protobuf:"varint,3,opt,name=Length,proto3" json:"Length,omitempty"`
-	Data                 []byte      `protobuf:"bytes,4,opt,name=Data,proto3" json:"Data,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
-	XXX_unrecognized     []byte      `json:"-"`
-	XXX_sizecache        int32       `json:"-"`
+type VolumeResponse struct {
+	Code                 int32    `protobuf:"varint,1,opt,name=Code,proto3" json:"Code,omitempty"`
+	Msg                  string   `protobuf:"bytes,2,opt,name=Msg,proto3" json:"Msg,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *VolumeReq) Reset()         { *m = VolumeReq{} }
-func (m *VolumeReq) String() string { return proto.CompactTextString(m) }
-func (*VolumeReq) ProtoMessage()    {}
-func (*VolumeReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed47c37037b94f4e, []int{4}
+func (m *VolumeResponse) Reset()         { *m = VolumeResponse{} }
+func (m *VolumeResponse) String() string { return proto.CompactTextString(m) }
+func (*VolumeResponse) ProtoMessage()    {}
+func (*VolumeResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ed47c37037b94f4e, []int{1}
 }
-func (m *VolumeReq) XXX_Unmarshal(b []byte) error {
+func (m *VolumeResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *VolumeReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *VolumeResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_VolumeReq.Marshal(b, m, deterministic)
+		return xxx_messageInfo_VolumeResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -293,40 +110,160 @@ func (m *VolumeReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return b[:n], nil
 	}
 }
-func (m *VolumeReq) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_VolumeReq.Merge(m, src)
+func (m *VolumeResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_VolumeResponse.Merge(m, src)
 }
-func (m *VolumeReq) XXX_Size() int {
+func (m *VolumeResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *VolumeReq) XXX_DiscardUnknown() {
-	xxx_messageInfo_VolumeReq.DiscardUnknown(m)
+func (m *VolumeResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_VolumeResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_VolumeReq proto.InternalMessageInfo
+var xxx_messageInfo_VolumeResponse proto.InternalMessageInfo
 
-func (m *VolumeReq) GetInfo() *VolumeInfo {
+func (m *VolumeResponse) GetCode() int32 {
 	if m != nil {
-		return m.Info
+		return m.Code
 	}
-	return nil
+	return 0
 }
 
-func (m *VolumeReq) GetOffset() uint32 {
+func (m *VolumeResponse) GetMsg() string {
+	if m != nil {
+		return m.Msg
+	}
+	return ""
+}
+
+type VolumeCtlResponse struct {
+	Code                 int32    `protobuf:"varint,1,opt,name=Code,proto3" json:"Code,omitempty"`
+	Msg                  string   `protobuf:"bytes,2,opt,name=Msg,proto3" json:"Msg,omitempty"`
+	Volid                uint32   `protobuf:"varint,3,opt,name=Volid,proto3" json:"Volid,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *VolumeCtlResponse) Reset()         { *m = VolumeCtlResponse{} }
+func (m *VolumeCtlResponse) String() string { return proto.CompactTextString(m) }
+func (*VolumeCtlResponse) ProtoMessage()    {}
+func (*VolumeCtlResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ed47c37037b94f4e, []int{2}
+}
+func (m *VolumeCtlResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *VolumeCtlResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_VolumeCtlResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *VolumeCtlResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_VolumeCtlResponse.Merge(m, src)
+}
+func (m *VolumeCtlResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *VolumeCtlResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_VolumeCtlResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_VolumeCtlResponse proto.InternalMessageInfo
+
+func (m *VolumeCtlResponse) GetCode() int32 {
+	if m != nil {
+		return m.Code
+	}
+	return 0
+}
+
+func (m *VolumeCtlResponse) GetMsg() string {
+	if m != nil {
+		return m.Msg
+	}
+	return ""
+}
+
+func (m *VolumeCtlResponse) GetVolid() uint32 {
+	if m != nil {
+		return m.Volid
+	}
+	return 0
+}
+
+type VolumeIO struct {
+	Volid                uint32   `protobuf:"varint,1,opt,name=Volid,proto3" json:"Volid,omitempty"`
+	Offset               uint64   `protobuf:"varint,2,opt,name=Offset,proto3" json:"Offset,omitempty"`
+	Length               uint32   `protobuf:"varint,3,opt,name=Length,proto3" json:"Length,omitempty"`
+	Data                 []byte   `protobuf:"bytes,4,opt,name=Data,proto3" json:"Data,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *VolumeIO) Reset()         { *m = VolumeIO{} }
+func (m *VolumeIO) String() string { return proto.CompactTextString(m) }
+func (*VolumeIO) ProtoMessage()    {}
+func (*VolumeIO) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ed47c37037b94f4e, []int{3}
+}
+func (m *VolumeIO) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *VolumeIO) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_VolumeIO.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *VolumeIO) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_VolumeIO.Merge(m, src)
+}
+func (m *VolumeIO) XXX_Size() int {
+	return m.Size()
+}
+func (m *VolumeIO) XXX_DiscardUnknown() {
+	xxx_messageInfo_VolumeIO.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_VolumeIO proto.InternalMessageInfo
+
+func (m *VolumeIO) GetVolid() uint32 {
+	if m != nil {
+		return m.Volid
+	}
+	return 0
+}
+
+func (m *VolumeIO) GetOffset() uint64 {
 	if m != nil {
 		return m.Offset
 	}
 	return 0
 }
 
-func (m *VolumeReq) GetLength() uint32 {
+func (m *VolumeIO) GetLength() uint32 {
 	if m != nil {
 		return m.Length
 	}
 	return 0
 }
 
-func (m *VolumeReq) GetData() []byte {
+func (m *VolumeIO) GetData() []byte {
 	if m != nil {
 		return m.Data
 	}
@@ -334,37 +271,36 @@ func (m *VolumeReq) GetData() []byte {
 }
 
 func init() {
-	proto.RegisterType((*Chkid)(nil), "Chkid")
-	proto.RegisterType((*Chunk)(nil), "Chunk")
-	proto.RegisterType((*ChunkResponse)(nil), "ChunkResponse")
 	proto.RegisterType((*VolumeInfo)(nil), "VolumeInfo")
-	proto.RegisterType((*VolumeReq)(nil), "VolumeReq")
+	proto.RegisterType((*VolumeResponse)(nil), "VolumeResponse")
+	proto.RegisterType((*VolumeCtlResponse)(nil), "VolumeCtlResponse")
+	proto.RegisterType((*VolumeIO)(nil), "VolumeIO")
 }
 
 func init() { proto.RegisterFile("pkg/pb/volume.proto", fileDescriptor_ed47c37037b94f4e) }
 
 var fileDescriptor_ed47c37037b94f4e = []byte{
-	// 314 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x51, 0xcd, 0x4e, 0xf3, 0x30,
-	0x10, 0xfc, 0xdc, 0x9f, 0x48, 0xdd, 0x7e, 0xad, 0x90, 0x41, 0x28, 0x42, 0x28, 0x54, 0x3e, 0xf5,
-	0x42, 0x2a, 0xb5, 0x70, 0xe2, 0x46, 0xb9, 0x20, 0x81, 0x90, 0x8c, 0xe0, 0xc0, 0x2d, 0xc5, 0x4e,
-	0x6b, 0xa5, 0xb5, 0x4d, 0x93, 0xe6, 0xc0, 0x93, 0xf0, 0x48, 0x1c, 0x79, 0x04, 0x14, 0x5e, 0x04,
-	0x79, 0x6d, 0x09, 0x71, 0xe7, 0x94, 0x99, 0xc9, 0xce, 0xae, 0x67, 0x17, 0xf6, 0x6d, 0xb1, 0x9c,
-	0xd8, 0xc5, 0xa4, 0x36, 0xeb, 0xdd, 0x46, 0xa6, 0x76, 0x6b, 0x2a, 0xc3, 0x4e, 0xa1, 0x3b, 0x5f,
-	0x15, 0x4a, 0xd0, 0x03, 0xe8, 0xd6, 0x66, 0xad, 0x44, 0x4c, 0x46, 0x64, 0x3c, 0xe0, 0x9e, 0xd0,
-	0x21, 0xb4, 0x94, 0x88, 0x5b, 0x28, 0xb5, 0x94, 0x60, 0xca, 0x95, 0xef, 0x74, 0x41, 0x8f, 0x83,
-	0x0f, 0xcb, 0xfb, 0xd3, 0x28, 0x45, 0xc6, 0x43, 0xb3, 0x43, 0x88, 0xee, 0xf2, 0xbc, 0x94, 0x55,
-	0xb0, 0x06, 0xe6, 0xf4, 0x1b, 0xa9, 0x97, 0xd5, 0x2a, 0x6e, 0x7b, 0xdd, 0x33, 0x4a, 0xa1, 0x73,
-	0x95, 0x55, 0x59, 0xdc, 0x19, 0x91, 0xf1, 0x7f, 0x8e, 0x98, 0x9d, 0xc3, 0x00, 0x47, 0x71, 0x59,
-	0x5a, 0xa3, 0x4b, 0xe9, 0x8a, 0xe6, 0x46, 0x48, 0x9c, 0xd8, 0xe5, 0x88, 0xe9, 0x1e, 0xb4, 0x6f,
-	0xcb, 0x25, 0x4e, 0xe9, 0x71, 0x07, 0xd9, 0x19, 0xc0, 0x23, 0x06, 0xbc, 0xd6, 0xb9, 0x71, 0x1e,
-	0x9d, 0x6d, 0xbc, 0xa7, 0xc7, 0x11, 0x3b, 0xad, 0x54, 0xaf, 0x32, 0x3c, 0x0d, 0x31, 0xb3, 0xd0,
-	0xf3, 0x2e, 0x2e, 0x5f, 0xe8, 0x09, 0x74, 0x94, 0xce, 0x4d, 0x88, 0xd6, 0x4f, 0x7f, 0xfa, 0x71,
-	0xfc, 0xf1, 0x17, 0xf1, 0xa6, 0x33, 0x18, 0xf8, 0xbe, 0xf7, 0x72, 0x5b, 0xab, 0x67, 0x49, 0x19,
-	0x44, 0x0f, 0x76, 0x6d, 0x32, 0x41, 0xdd, 0x32, 0x77, 0xba, 0x38, 0x1a, 0xa6, 0xbf, 0x16, 0x30,
-	0x26, 0x97, 0xa3, 0xf7, 0x26, 0x21, 0x1f, 0x4d, 0x42, 0x3e, 0x9b, 0x84, 0xbc, 0x7d, 0x25, 0xff,
-	0x9e, 0x86, 0xe9, 0xc4, 0x9f, 0xf5, 0x02, 0xef, 0xb9, 0x88, 0xf0, 0x33, 0xfb, 0x0e, 0x00, 0x00,
-	0xff, 0xff, 0x32, 0xc9, 0x4e, 0x3f, 0xed, 0x01, 0x00, 0x00,
+	// 316 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x2e, 0xc8, 0x4e, 0xd7,
+	0x2f, 0x48, 0xd2, 0x2f, 0xcb, 0xcf, 0x29, 0xcd, 0x4d, 0xd5, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x57,
+	0x32, 0xe1, 0xe2, 0x0a, 0x03, 0xf3, 0x3d, 0xf3, 0xd2, 0xf2, 0x85, 0x84, 0xb8, 0x58, 0xf2, 0x12,
+	0x73, 0x53, 0x25, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83, 0xc0, 0x6c, 0x90, 0x58, 0x71, 0x66, 0x55,
+	0xaa, 0x04, 0x93, 0x02, 0xa3, 0x06, 0x4b, 0x10, 0x98, 0xad, 0x64, 0xc6, 0xc5, 0x07, 0xd1, 0x15,
+	0x94, 0x5a, 0x5c, 0x90, 0x9f, 0x57, 0x0c, 0x56, 0xe5, 0x9c, 0x9f, 0x02, 0xd1, 0xc9, 0x1a, 0x04,
+	0x66, 0x0b, 0x09, 0x70, 0x31, 0xfb, 0x16, 0xa7, 0x83, 0x35, 0x72, 0x06, 0x81, 0x98, 0x4a, 0xfe,
+	0x5c, 0x82, 0x10, 0x7d, 0xce, 0x25, 0x39, 0xa4, 0x69, 0x15, 0x12, 0xe1, 0x62, 0x0d, 0xcb, 0xcf,
+	0xc9, 0x4c, 0x91, 0x60, 0x56, 0x60, 0xd4, 0xe0, 0x0d, 0x82, 0x70, 0x94, 0x52, 0xb8, 0x38, 0xa0,
+	0xce, 0xf7, 0x47, 0xa8, 0x60, 0x44, 0x52, 0x21, 0x24, 0xc6, 0xc5, 0xe6, 0x9f, 0x96, 0x56, 0x9c,
+	0x5a, 0x02, 0xf5, 0x00, 0x94, 0x07, 0x12, 0xf7, 0x49, 0xcd, 0x4b, 0x2f, 0xc9, 0x80, 0x1a, 0x08,
+	0xe5, 0x81, 0x5c, 0xe3, 0x92, 0x58, 0x92, 0x28, 0xc1, 0xa2, 0xc0, 0xa8, 0xc1, 0x13, 0x04, 0x66,
+	0x1b, 0x6d, 0x62, 0xe4, 0xe2, 0x85, 0x58, 0x13, 0x9c, 0x5a, 0x54, 0x96, 0x99, 0x9c, 0x2a, 0xa4,
+	0xc9, 0xc5, 0xe6, 0x5c, 0x94, 0x9a, 0x58, 0x92, 0x2a, 0xc4, 0xad, 0x87, 0x08, 0x3f, 0x29, 0x21,
+	0x3d, 0x4c, 0xef, 0x69, 0x72, 0xb1, 0x05, 0xa5, 0xe6, 0xe6, 0x97, 0x11, 0xa1, 0x54, 0x95, 0x8b,
+	0x35, 0xbc, 0x28, 0xb3, 0x24, 0x55, 0x88, 0x13, 0xa6, 0xd2, 0x5f, 0x8a, 0x5f, 0x0f, 0x35, 0xa4,
+	0x35, 0x18, 0x85, 0x54, 0xb8, 0x58, 0x82, 0x52, 0x13, 0x53, 0xf0, 0xab, 0x72, 0x52, 0x38, 0xf1,
+	0x48, 0x8e, 0xf1, 0xc2, 0x23, 0x39, 0xc6, 0x07, 0x8f, 0xe4, 0x18, 0x67, 0x3c, 0x96, 0x63, 0x88,
+	0xe2, 0xd3, 0xd3, 0x87, 0x24, 0x01, 0x6b, 0x70, 0xdc, 0x27, 0xb1, 0x81, 0x29, 0x63, 0x40, 0x00,
+	0x00, 0x00, 0xff, 0xff, 0xcb, 0xed, 0x44, 0x5d, 0x19, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -379,7 +315,10 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type VolumeServiceClient interface {
-	Upload(ctx context.Context, opts ...grpc.CallOption) (VolumeService_UploadClient, error)
+	Create(ctx context.Context, in *VolumeInfo, opts ...grpc.CallOption) (*VolumeCtlResponse, error)
+	Remove(ctx context.Context, in *VolumeInfo, opts ...grpc.CallOption) (*VolumeCtlResponse, error)
+	Write(ctx context.Context, opts ...grpc.CallOption) (VolumeService_WriteClient, error)
+	Read(ctx context.Context, opts ...grpc.CallOption) (VolumeService_ReadClient, error)
 }
 
 type volumeServiceClient struct {
@@ -390,34 +329,86 @@ func NewVolumeServiceClient(cc *grpc.ClientConn) VolumeServiceClient {
 	return &volumeServiceClient{cc}
 }
 
-func (c *volumeServiceClient) Upload(ctx context.Context, opts ...grpc.CallOption) (VolumeService_UploadClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_VolumeService_serviceDesc.Streams[0], "/VolumeService/Upload", opts...)
+func (c *volumeServiceClient) Create(ctx context.Context, in *VolumeInfo, opts ...grpc.CallOption) (*VolumeCtlResponse, error) {
+	out := new(VolumeCtlResponse)
+	err := c.cc.Invoke(ctx, "/VolumeService/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &volumeServiceUploadClient{stream}
+	return out, nil
+}
+
+func (c *volumeServiceClient) Remove(ctx context.Context, in *VolumeInfo, opts ...grpc.CallOption) (*VolumeCtlResponse, error) {
+	out := new(VolumeCtlResponse)
+	err := c.cc.Invoke(ctx, "/VolumeService/Remove", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *volumeServiceClient) Write(ctx context.Context, opts ...grpc.CallOption) (VolumeService_WriteClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_VolumeService_serviceDesc.Streams[0], "/VolumeService/Write", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &volumeServiceWriteClient{stream}
 	return x, nil
 }
 
-type VolumeService_UploadClient interface {
-	Send(*Chunk) error
-	CloseAndRecv() (*ChunkResponse, error)
+type VolumeService_WriteClient interface {
+	Send(*VolumeIO) error
+	CloseAndRecv() (*VolumeResponse, error)
 	grpc.ClientStream
 }
 
-type volumeServiceUploadClient struct {
+type volumeServiceWriteClient struct {
 	grpc.ClientStream
 }
 
-func (x *volumeServiceUploadClient) Send(m *Chunk) error {
+func (x *volumeServiceWriteClient) Send(m *VolumeIO) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *volumeServiceUploadClient) CloseAndRecv() (*ChunkResponse, error) {
+func (x *volumeServiceWriteClient) CloseAndRecv() (*VolumeResponse, error) {
 	if err := x.ClientStream.CloseSend(); err != nil {
 		return nil, err
 	}
-	m := new(ChunkResponse)
+	m := new(VolumeResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *volumeServiceClient) Read(ctx context.Context, opts ...grpc.CallOption) (VolumeService_ReadClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_VolumeService_serviceDesc.Streams[1], "/VolumeService/Read", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &volumeServiceReadClient{stream}
+	return x, nil
+}
+
+type VolumeService_ReadClient interface {
+	Send(*VolumeIO) error
+	CloseAndRecv() (*VolumeResponse, error)
+	grpc.ClientStream
+}
+
+type volumeServiceReadClient struct {
+	grpc.ClientStream
+}
+
+func (x *volumeServiceReadClient) Send(m *VolumeIO) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *volumeServiceReadClient) CloseAndRecv() (*VolumeResponse, error) {
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	m := new(VolumeResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -426,41 +417,115 @@ func (x *volumeServiceUploadClient) CloseAndRecv() (*ChunkResponse, error) {
 
 // VolumeServiceServer is the server API for VolumeService service.
 type VolumeServiceServer interface {
-	Upload(VolumeService_UploadServer) error
+	Create(context.Context, *VolumeInfo) (*VolumeCtlResponse, error)
+	Remove(context.Context, *VolumeInfo) (*VolumeCtlResponse, error)
+	Write(VolumeService_WriteServer) error
+	Read(VolumeService_ReadServer) error
 }
 
 // UnimplementedVolumeServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedVolumeServiceServer struct {
 }
 
-func (*UnimplementedVolumeServiceServer) Upload(srv VolumeService_UploadServer) error {
-	return status.Errorf(codes.Unimplemented, "method Upload not implemented")
+func (*UnimplementedVolumeServiceServer) Create(ctx context.Context, req *VolumeInfo) (*VolumeCtlResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+}
+func (*UnimplementedVolumeServiceServer) Remove(ctx context.Context, req *VolumeInfo) (*VolumeCtlResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Remove not implemented")
+}
+func (*UnimplementedVolumeServiceServer) Write(srv VolumeService_WriteServer) error {
+	return status.Errorf(codes.Unimplemented, "method Write not implemented")
+}
+func (*UnimplementedVolumeServiceServer) Read(srv VolumeService_ReadServer) error {
+	return status.Errorf(codes.Unimplemented, "method Read not implemented")
 }
 
 func RegisterVolumeServiceServer(s *grpc.Server, srv VolumeServiceServer) {
 	s.RegisterService(&_VolumeService_serviceDesc, srv)
 }
 
-func _VolumeService_Upload_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(VolumeServiceServer).Upload(&volumeServiceUploadServer{stream})
+func _VolumeService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VolumeInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VolumeServiceServer).Create(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/VolumeService/Create",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VolumeServiceServer).Create(ctx, req.(*VolumeInfo))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-type VolumeService_UploadServer interface {
-	SendAndClose(*ChunkResponse) error
-	Recv() (*Chunk, error)
+func _VolumeService_Remove_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VolumeInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VolumeServiceServer).Remove(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/VolumeService/Remove",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VolumeServiceServer).Remove(ctx, req.(*VolumeInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _VolumeService_Write_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(VolumeServiceServer).Write(&volumeServiceWriteServer{stream})
+}
+
+type VolumeService_WriteServer interface {
+	SendAndClose(*VolumeResponse) error
+	Recv() (*VolumeIO, error)
 	grpc.ServerStream
 }
 
-type volumeServiceUploadServer struct {
+type volumeServiceWriteServer struct {
 	grpc.ServerStream
 }
 
-func (x *volumeServiceUploadServer) SendAndClose(m *ChunkResponse) error {
+func (x *volumeServiceWriteServer) SendAndClose(m *VolumeResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *volumeServiceUploadServer) Recv() (*Chunk, error) {
-	m := new(Chunk)
+func (x *volumeServiceWriteServer) Recv() (*VolumeIO, error) {
+	m := new(VolumeIO)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func _VolumeService_Read_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(VolumeServiceServer).Read(&volumeServiceReadServer{stream})
+}
+
+type VolumeService_ReadServer interface {
+	SendAndClose(*VolumeResponse) error
+	Recv() (*VolumeIO, error)
+	grpc.ServerStream
+}
+
+type volumeServiceReadServer struct {
+	grpc.ServerStream
+}
+
+func (x *volumeServiceReadServer) SendAndClose(m *VolumeResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *volumeServiceReadServer) Recv() (*VolumeIO, error) {
+	m := new(VolumeIO)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -470,147 +535,29 @@ func (x *volumeServiceUploadServer) Recv() (*Chunk, error) {
 var _VolumeService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "VolumeService",
 	HandlerType: (*VolumeServiceServer)(nil),
-	Methods:     []grpc.MethodDesc{},
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Create",
+			Handler:    _VolumeService_Create_Handler,
+		},
+		{
+			MethodName: "Remove",
+			Handler:    _VolumeService_Remove_Handler,
+		},
+	},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "Upload",
-			Handler:       _VolumeService_Upload_Handler,
+			StreamName:    "Write",
+			Handler:       _VolumeService_Write_Handler,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "Read",
+			Handler:       _VolumeService_Read_Handler,
 			ClientStreams: true,
 		},
 	},
 	Metadata: "pkg/pb/volume.proto",
-}
-
-func (m *Chkid) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *Chkid) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *Chkid) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if m.XXX_unrecognized != nil {
-		i -= len(m.XXX_unrecognized)
-		copy(dAtA[i:], m.XXX_unrecognized)
-	}
-	if m.Id != 0 {
-		i = encodeVarintVolume(dAtA, i, uint64(m.Id))
-		i--
-		dAtA[i] = 0x10
-	}
-	if m.Volid != 0 {
-		i = encodeVarintVolume(dAtA, i, uint64(m.Volid))
-		i--
-		dAtA[i] = 0x8
-	}
-	return len(dAtA) - i, nil
-}
-
-func (m *Chunk) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *Chunk) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *Chunk) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if m.XXX_unrecognized != nil {
-		i -= len(m.XXX_unrecognized)
-		copy(dAtA[i:], m.XXX_unrecognized)
-	}
-	if len(m.Data) > 0 {
-		i -= len(m.Data)
-		copy(dAtA[i:], m.Data)
-		i = encodeVarintVolume(dAtA, i, uint64(len(m.Data)))
-		i--
-		dAtA[i] = 0x22
-	}
-	if m.Length != 0 {
-		i = encodeVarintVolume(dAtA, i, uint64(m.Length))
-		i--
-		dAtA[i] = 0x18
-	}
-	if m.Offset != 0 {
-		i = encodeVarintVolume(dAtA, i, uint64(m.Offset))
-		i--
-		dAtA[i] = 0x10
-	}
-	if m.Chkid != nil {
-		{
-			size, err := m.Chkid.MarshalToSizedBuffer(dAtA[:i])
-			if err != nil {
-				return 0, err
-			}
-			i -= size
-			i = encodeVarintVolume(dAtA, i, uint64(size))
-		}
-		i--
-		dAtA[i] = 0xa
-	}
-	return len(dAtA) - i, nil
-}
-
-func (m *ChunkResponse) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *ChunkResponse) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *ChunkResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if m.XXX_unrecognized != nil {
-		i -= len(m.XXX_unrecognized)
-		copy(dAtA[i:], m.XXX_unrecognized)
-	}
-	if len(m.Msg) > 0 {
-		i -= len(m.Msg)
-		copy(dAtA[i:], m.Msg)
-		i = encodeVarintVolume(dAtA, i, uint64(len(m.Msg)))
-		i--
-		dAtA[i] = 0x12
-	}
-	if m.Code != 0 {
-		i = encodeVarintVolume(dAtA, i, uint64(m.Code))
-		i--
-		dAtA[i] = 0x8
-	}
-	return len(dAtA) - i, nil
 }
 
 func (m *VolumeInfo) Marshal() (dAtA []byte, err error) {
@@ -652,7 +599,7 @@ func (m *VolumeInfo) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *VolumeReq) Marshal() (dAtA []byte, err error) {
+func (m *VolumeResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -662,12 +609,95 @@ func (m *VolumeReq) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *VolumeReq) MarshalTo(dAtA []byte) (int, error) {
+func (m *VolumeResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *VolumeReq) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *VolumeResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.Msg) > 0 {
+		i -= len(m.Msg)
+		copy(dAtA[i:], m.Msg)
+		i = encodeVarintVolume(dAtA, i, uint64(len(m.Msg)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Code != 0 {
+		i = encodeVarintVolume(dAtA, i, uint64(m.Code))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *VolumeCtlResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *VolumeCtlResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *VolumeCtlResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.Volid != 0 {
+		i = encodeVarintVolume(dAtA, i, uint64(m.Volid))
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.Msg) > 0 {
+		i -= len(m.Msg)
+		copy(dAtA[i:], m.Msg)
+		i = encodeVarintVolume(dAtA, i, uint64(len(m.Msg)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Code != 0 {
+		i = encodeVarintVolume(dAtA, i, uint64(m.Code))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *VolumeIO) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *VolumeIO) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *VolumeIO) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -693,17 +723,10 @@ func (m *VolumeReq) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x10
 	}
-	if m.Info != nil {
-		{
-			size, err := m.Info.MarshalToSizedBuffer(dAtA[:i])
-			if err != nil {
-				return 0, err
-			}
-			i -= size
-			i = encodeVarintVolume(dAtA, i, uint64(size))
-		}
+	if m.Volid != 0 {
+		i = encodeVarintVolume(dAtA, i, uint64(m.Volid))
 		i--
-		dAtA[i] = 0xa
+		dAtA[i] = 0x8
 	}
 	return len(dAtA) - i, nil
 }
@@ -719,69 +742,6 @@ func encodeVarintVolume(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
-func (m *Chkid) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	if m.Volid != 0 {
-		n += 1 + sovVolume(uint64(m.Volid))
-	}
-	if m.Id != 0 {
-		n += 1 + sovVolume(uint64(m.Id))
-	}
-	if m.XXX_unrecognized != nil {
-		n += len(m.XXX_unrecognized)
-	}
-	return n
-}
-
-func (m *Chunk) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	if m.Chkid != nil {
-		l = m.Chkid.Size()
-		n += 1 + l + sovVolume(uint64(l))
-	}
-	if m.Offset != 0 {
-		n += 1 + sovVolume(uint64(m.Offset))
-	}
-	if m.Length != 0 {
-		n += 1 + sovVolume(uint64(m.Length))
-	}
-	l = len(m.Data)
-	if l > 0 {
-		n += 1 + l + sovVolume(uint64(l))
-	}
-	if m.XXX_unrecognized != nil {
-		n += len(m.XXX_unrecognized)
-	}
-	return n
-}
-
-func (m *ChunkResponse) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	if m.Code != 0 {
-		n += 1 + sovVolume(uint64(m.Code))
-	}
-	l = len(m.Msg)
-	if l > 0 {
-		n += 1 + l + sovVolume(uint64(l))
-	}
-	if m.XXX_unrecognized != nil {
-		n += len(m.XXX_unrecognized)
-	}
-	return n
-}
-
 func (m *VolumeInfo) Size() (n int) {
 	if m == nil {
 		return 0
@@ -801,15 +761,55 @@ func (m *VolumeInfo) Size() (n int) {
 	return n
 }
 
-func (m *VolumeReq) Size() (n int) {
+func (m *VolumeResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	if m.Info != nil {
-		l = m.Info.Size()
+	if m.Code != 0 {
+		n += 1 + sovVolume(uint64(m.Code))
+	}
+	l = len(m.Msg)
+	if l > 0 {
 		n += 1 + l + sovVolume(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *VolumeCtlResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Code != 0 {
+		n += 1 + sovVolume(uint64(m.Code))
+	}
+	l = len(m.Msg)
+	if l > 0 {
+		n += 1 + l + sovVolume(uint64(l))
+	}
+	if m.Volid != 0 {
+		n += 1 + sovVolume(uint64(m.Volid))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *VolumeIO) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Volid != 0 {
+		n += 1 + sovVolume(uint64(m.Volid))
 	}
 	if m.Offset != 0 {
 		n += 1 + sovVolume(uint64(m.Offset))
@@ -832,356 +832,6 @@ func sovVolume(x uint64) (n int) {
 }
 func sozVolume(x uint64) (n int) {
 	return sovVolume(uint64((x << 1) ^ uint64((int64(x) >> 63))))
-}
-func (m *Chkid) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowVolume
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: Chkid: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: Chkid: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Volid", wireType)
-			}
-			m.Volid = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowVolume
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Volid |= uint32(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 2:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
-			}
-			m.Id = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowVolume
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Id |= uint32(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		default:
-			iNdEx = preIndex
-			skippy, err := skipVolume(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthVolume
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *Chunk) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowVolume
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: Chunk: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: Chunk: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Chkid", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowVolume
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthVolume
-			}
-			postIndex := iNdEx + msglen
-			if postIndex < 0 {
-				return ErrInvalidLengthVolume
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.Chkid == nil {
-				m.Chkid = &Chkid{}
-			}
-			if err := m.Chkid.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 2:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Offset", wireType)
-			}
-			m.Offset = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowVolume
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Offset |= uint32(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 3:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Length", wireType)
-			}
-			m.Length = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowVolume
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Length |= uint32(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 4:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Data", wireType)
-			}
-			var byteLen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowVolume
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				byteLen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if byteLen < 0 {
-				return ErrInvalidLengthVolume
-			}
-			postIndex := iNdEx + byteLen
-			if postIndex < 0 {
-				return ErrInvalidLengthVolume
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Data = append(m.Data[:0], dAtA[iNdEx:postIndex]...)
-			if m.Data == nil {
-				m.Data = []byte{}
-			}
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipVolume(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthVolume
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *ChunkResponse) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowVolume
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: ChunkResponse: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: ChunkResponse: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Code", wireType)
-			}
-			m.Code = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowVolume
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Code |= int32(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Msg", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowVolume
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthVolume
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthVolume
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Msg = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipVolume(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthVolume
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
 }
 func (m *VolumeInfo) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
@@ -1258,7 +908,7 @@ func (m *VolumeInfo) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Size_ |= uint32(b&0x7F) << shift
+				m.Size_ |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1285,7 +935,7 @@ func (m *VolumeInfo) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *VolumeReq) Unmarshal(dAtA []byte) error {
+func (m *VolumeResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1308,17 +958,17 @@ func (m *VolumeReq) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: VolumeReq: wiretype end group for non-group")
+			return fmt.Errorf("proto: VolumeResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: VolumeReq: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: VolumeResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Info", wireType)
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Code", wireType)
 			}
-			var msglen int
+			m.Code = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowVolume
@@ -1328,28 +978,234 @@ func (m *VolumeReq) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				msglen |= int(b&0x7F) << shift
+				m.Code |= int32(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			if msglen < 0 {
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Msg", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowVolume
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
 				return ErrInvalidLengthVolume
 			}
-			postIndex := iNdEx + msglen
+			postIndex := iNdEx + intStringLen
 			if postIndex < 0 {
 				return ErrInvalidLengthVolume
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Info == nil {
-				m.Info = &VolumeInfo{}
-			}
-			if err := m.Info.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Msg = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipVolume(dAtA[iNdEx:])
+			if err != nil {
 				return err
 			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthVolume
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *VolumeCtlResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowVolume
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: VolumeCtlResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: VolumeCtlResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Code", wireType)
+			}
+			m.Code = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowVolume
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Code |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Msg", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowVolume
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthVolume
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthVolume
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Msg = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Volid", wireType)
+			}
+			m.Volid = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowVolume
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Volid |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipVolume(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthVolume
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *VolumeIO) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowVolume
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: VolumeIO: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: VolumeIO: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Volid", wireType)
+			}
+			m.Volid = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowVolume
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Volid |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		case 2:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Offset", wireType)
@@ -1364,7 +1220,7 @@ func (m *VolumeReq) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Offset |= uint32(b&0x7F) << shift
+				m.Offset |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
