@@ -26,7 +26,7 @@ func GetMeta() *Meta {
 	return meta
 }
 
-const volume_prefix = "volume/"
+const volume_prefix = "volumes/"
 
 func id2Key(id uint64) string {
 	return fmt.Sprintf("%s%08x", volume_prefix, id)

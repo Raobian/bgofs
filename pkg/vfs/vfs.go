@@ -1,6 +1,7 @@
 package vfs
 
 import (
+	"errors"
 	"io"
 	"os"
 )
@@ -16,24 +17,65 @@ type File interface {
 	Name() string
 	// Readdir(count int) ([]os.FileInfo, error)
 	// Readdirnames(n int) ([]string, error)
-	// Stat() (os.FileInfo, error)
-	Sync() error
-	Truncate(size int64) error
+	Stat() (os.FileInfo, error)
+	// Sync() error
+	// Truncate(size int64) error
 	// WriteString(s string) (ret int, err error)
 }
 
-type VFS interface {
+// VFs is the filesystem interface.
+type VFs interface {
+	// Create creates a file in the filesystem, returning the file and an
+	// error, if any happens.
 	Create(name string) (File, error)
+
+	// Mkdir creates a directory in the filesystem, return an error if any
+	// happens.
 	Mkdir(name string, perm os.FileMode) error
+
+	// MkdirAll creates a directory path and all parents that does not exist
+	// yet.
 	// MkdirAll(path string, perm os.FileMode) error
-	OpenFile(name string, flag int, perm os.FileMode) (File, error)
+
+	// Open opens a file, returning it or an error, if any happens.
 	Open(name string) (File, error)
+
+	// OpenFile opens a file using the given flags and the given mode.
+	// OpenFile(name string, flag int, perm os.FileMode) (File, error)
+
+	// Remove removes a file identified by name, returning an error, if any
+	// happens.
 	Remove(name string) error
+
+	// RemoveAll removes a directory path and any children it contains. It
+	// does not fail if the path does not exist (return nil).
 	// RemoveAll(path string) error
-	Rename(oldname, newname string) error
-	Stat(name string) (os.FileInfo, error)
-	// Name() string
+
+	// Rename renames a file.
+	// Rename(oldname, newname string) error
+
+	// Stat returns a FileInfo describing the named file, or an error, if any
+	// happens.
+	// Stat(name string) (os.FileInfo, error)
+
+	// The name of this FileSystem
+	Name() string
+
+	// Chmod changes the mode of the named file to mode.
 	// Chmod(name string, mode os.FileMode) error
+
+	// Chown changes the uid and gid of the named file.
 	// Chown(name string, uid, gid int) error
+
+	//Chtimes changes the access and modification times of the named file
 	// Chtimes(name string, atime time.Time, mtime time.Time) error
 }
+
+var (
+	ErrFileClosed        = errors.New("File is closed")
+	ErrOutOfRange        = errors.New("Out of range")
+	ErrTooLarge          = errors.New("Too large")
+	ErrFileNotFound      = os.ErrNotExist
+	ErrFileExists        = os.ErrExist
+	ErrDestinationExists = os.ErrExist
+)
