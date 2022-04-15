@@ -33,6 +33,8 @@ type VFs interface {
 	// happens.
 	Mkdir(name string, perm os.FileMode) error
 
+	OpenDir(name string) ([]string, error)
+
 	// MkdirAll creates a directory path and all parents that does not exist
 	// yet.
 	// MkdirAll(path string, perm os.FileMode) error
@@ -69,6 +71,7 @@ type VFs interface {
 
 	//Chtimes changes the access and modification times of the named file
 	// Chtimes(name string, atime time.Time, mtime time.Time) error
+
 }
 
 var (
