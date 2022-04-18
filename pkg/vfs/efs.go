@@ -21,19 +21,27 @@ func NewEFs() *EFs {
 	return efs
 }
 
+func (efs *EFs) Close() {
+	efs.etcdClient.Close()
+}
+
 func (efs *EFs) Name() string {
 	return "efs"
 }
 
 func (efs *EFs) Create(name string) (File, error) {
 	_, err := efs.etcdClient.Set(name, "", 0)
-	log.Printf("create %v err %v", name, err)
-	return nil, err
+	log.Printf("create %v err:%v", name, err)
+	if err != nil {
+		return nil, err
+	}
+	return efs.Open(name)
 }
 
 func (efs *EFs) Mkdir(name string, perm os.FileMode) error {
 	_, err := efs.etcdClient.CreateDir(name, 0)
 	log.Printf("mkdir %v err %v", name, err)
+	// TODO: create md_info
 	return err
 }
 
@@ -52,10 +60,34 @@ func (efs *EFs) OpenDir(name string) ([]string, error) {
 	return files, nil
 }
 
-func (efs *EFs) Open(name string) (File, error) {
-	return nil, nil
+func (efs *EFs) Remove(name string) error {
+	_, err := efs.etcdClient.Get(name, false, false)
+	if err != nil {
+		return err
+	}
+
+	_, err = efs.etcdClient.DeleteDir(name)
+	return err
 }
 
-func (efs *EFs) Remove(name string) error {
-	return nil
+func (efs *EFs) RemoveAll(path string) error {
+	_, err := efs.etcdClient.Get(path, false, false)
+	if err != nil {
+		return err
+	}
+	_, err = efs.etcdClient.Delete(path, true)
+	log.Printf("delete %v err:%v", path, err)
+	return err
+}
+
+func (efs *EFs) Open(name string) (File, error) {
+	_, err := efs.etcdClient.Get(name, false, false)
+	if err != nil {
+		return nil, err
+	}
+	efsf, err := GetFileByName(name)
+	if err != nil {
+		efsf = NewEFsFile(name)
+	}
+	return efsf, nil
 }

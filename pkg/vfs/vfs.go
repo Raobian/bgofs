@@ -9,10 +9,10 @@ import (
 type File interface {
 	io.Closer
 	io.Reader
-	io.ReaderAt
+	// io.ReaderAt
 	io.Seeker
 	io.Writer
-	io.WriterAt
+	// io.WriterAt
 
 	Name() string
 	// Readdir(count int) ([]os.FileInfo, error)
@@ -51,7 +51,7 @@ type VFs interface {
 
 	// RemoveAll removes a directory path and any children it contains. It
 	// does not fail if the path does not exist (return nil).
-	// RemoveAll(path string) error
+	RemoveAll(path string) error
 
 	// Rename renames a file.
 	// Rename(oldname, newname string) error
@@ -81,4 +81,5 @@ var (
 	ErrFileNotFound      = os.ErrNotExist
 	ErrFileExists        = os.ErrExist
 	ErrDestinationExists = os.ErrExist
+	ErrInvalid           = os.ErrInvalid
 )
