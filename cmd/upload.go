@@ -6,19 +6,19 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var Fname string
+var fname string
 
 var uploadCmd = &cobra.Command{
 	Use:   "upload",
 	Short: "Upload",
 	Long:  `A longer description Upload`,
 	Run: func(cmd *cobra.Command, args []string) {
-		client.Upload(Fname)
+		client.Upload(fname)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(uploadCmd)
-	uploadCmd.Flags().StringVarP(&Fname, "filename", "f", "", "File name to upload, (required)")
+	uploadCmd.Flags().StringVarP(&fname, "filename", "f", "", "File name to upload, (required)")
 	uploadCmd.MarkFlagRequired("filename")
 }

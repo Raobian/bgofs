@@ -15,4 +15,6 @@ var (
 
 	EtcdEndPointer = "127.0.0.1:2379"
 	RedisAddr      = "127.0.0.1:6379"
+
+	IsServer = false
 )

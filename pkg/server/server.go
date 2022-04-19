@@ -17,6 +17,7 @@ import (
 
 func Init() {
 	// log.SetLevel(config.DefaultLogLevel)
+	config.IsServer = true
 }
 
 type VolumeService struct {

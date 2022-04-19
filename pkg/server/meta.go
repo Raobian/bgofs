@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/Raobian/bgofs/pkg/common/log"
+	"github.com/Raobian/bgofs/pkg/config"
 	"github.com/Raobian/bgofs/pkg/kvengine"
 )
 
@@ -16,6 +17,10 @@ type Meta struct {
 var meta *Meta
 
 func init() {
+	if !config.IsServer {
+		return
+	}
+
 	kv := kvengine.NewRedisKV()
 	meta = &Meta{
 		kv: kv,

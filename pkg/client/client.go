@@ -13,8 +13,14 @@ import (
 	"google.golang.org/grpc"
 )
 
-var vc pb.VolumeServiceClient
+var Vclient pb.VolumeServiceClient
 var conn *grpc.ClientConn
+
+func init() {
+	if !config.IsServer {
+		connectToServer()
+	}
+}
 
 func connectToServer() pb.VolumeServiceClient {
 	var err error
@@ -22,8 +28,8 @@ func connectToServer() pb.VolumeServiceClient {
 	if err != nil {
 		log.DFATAL("net.Connect err: %v", err)
 	}
-	vc = pb.NewVolumeServiceClient(conn)
-	return vc
+	Vclient = pb.NewVolumeServiceClient(conn)
+	return Vclient
 }
 
 func closeClient() {
@@ -31,7 +37,6 @@ func closeClient() {
 }
 
 func Upload(fname string) {
-	connectToServer()
 	defer closeClient()
 
 	log.DINFO("fname:%s opening...", fname)
@@ -50,7 +55,7 @@ func Upload(fname string) {
 	sname := strings.Split(fname, "/")
 	filename := sname[len(sname)-1]
 
-	res, err := vc.Create(context.Background(), &pb.VolumeInfo{
+	res, err := Vclient.Create(context.Background(), &pb.VolumeInfo{
 		Name:  filename,
 		Size_: uint64(size),
 	})
@@ -58,7 +63,7 @@ func Upload(fname string) {
 		log.DFATAL("Upload file:%s rpc create failed err: %v", fname, err)
 	}
 
-	stream, err := vc.Write(context.Background())
+	stream, err := Vclient.Write(context.Background())
 	if err != nil {
 		log.DFATAL("Upload file:%s rpc write stream failed err: %v", fname, err)
 	}
