@@ -5,8 +5,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/Raobian/bgofs/pkg/common"
 	"github.com/Raobian/bgofs/pkg/common/log"
+	"github.com/Raobian/bgofs/pkg/config"
 )
 
 type PlainStore struct {
@@ -46,7 +46,7 @@ func (s *PlainStore) Create(obj *Object) error {
 	}
 	defer file.Close()
 
-	if err := file.Truncate(int64(common.OBJSIZE)); err != nil {
+	if err := file.Truncate(int64(config.CHKSIZE)); err != nil {
 		log.DERROR("truncate %s failed %v", path, err)
 		return err
 	}

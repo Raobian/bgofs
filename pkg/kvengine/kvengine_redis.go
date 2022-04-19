@@ -4,11 +4,12 @@ import (
 	"context"
 
 	"github.com/Raobian/bgofs/pkg/common/log"
+	"github.com/Raobian/bgofs/pkg/config"
 	"github.com/go-redis/redis/v8"
 )
 
 const (
-	Addr   = "127.0.0.1:6379"
+	// Addr   = "127.0.0.1:6379"
 	Passwd = ""
 )
 
@@ -18,7 +19,7 @@ type KVEngineRedis struct {
 
 func NewRedisKV() *KVEngineRedis {
 	op := &redis.Options{
-		Addr:     Addr,
+		Addr:     config.RedisAddr,
 		Password: Passwd,
 		DB:       0,
 	}

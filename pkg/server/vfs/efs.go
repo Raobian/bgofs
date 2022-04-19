@@ -5,6 +5,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/Raobian/bgofs/pkg/config"
 	"github.com/coreos/go-etcd/etcd"
 )
 
@@ -15,7 +16,7 @@ type EFs struct {
 
 func NewEFs() *EFs {
 	efs := &EFs{
-		EndPointer: "http://127.0.0.1:2379",
+		EndPointer: "http://" + config.EtcdEndPointer,
 	}
 	efs.etcdClient = etcd.NewClient([]string{efs.EndPointer})
 	return efs

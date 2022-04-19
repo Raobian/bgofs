@@ -5,8 +5,8 @@ import (
 	"io"
 	"net"
 
-	"github.com/Raobian/bgofs/pkg/common"
 	"github.com/Raobian/bgofs/pkg/common/log"
+	"github.com/Raobian/bgofs/pkg/config"
 
 	pb "github.com/Raobian/bgofs/pkg/pb"
 
@@ -16,15 +16,8 @@ import (
 )
 
 func Init() {
-	log.SetLevel(log.INFO)
+	// log.SetLevel(config.DefaultLogLevel)
 }
-
-const (
-	// Address 监听地址
-	Address string = ":8000"
-	// Network 网络通信协议
-	Network string = "tcp"
-)
 
 type VolumeService struct {
 }
@@ -56,7 +49,7 @@ func (vs *VolumeService) Write(srv pb.VolumeService_WriteServer) error {
 		if err != nil {
 			return err
 		}
-		log.DINFO("server recv:%x off:%d len:%d Data:%s\n", res.Volid, res.Offset, res.Length, string(res.Data))
+		log.DINFO("server recv:%x off:%d len:%d\n", res.Volid, res.Offset, res.Length)
 	}
 }
 
@@ -65,14 +58,14 @@ func (vs *VolumeService) Read(srv pb.VolumeService_ReadServer) error {
 }
 
 func Server() {
-	listener, err := net.Listen(Network, Address)
+	listener, err := net.Listen("tcp", config.GRPCAddr)
 	if err != nil {
 		log.DFATAL("net.Listen err: %v", err)
 	}
-	log.DINFO(Address + " net.Listing...")
+	log.DINFO(" net.Listing on %s ...", config.GRPCAddr)
 
 	var grpcOpts = []grpc.ServerOption{
-		grpc.MaxMsgSize(int(common.MaxMsgSize)),
+		grpc.MaxMsgSize(int(config.GRPCMaxMsgSize)),
 	}
 	grpcServer := grpc.NewServer(grpcOpts...)
 

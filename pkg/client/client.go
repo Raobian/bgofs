@@ -6,22 +6,19 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Raobian/bgofs/pkg/common"
 	"github.com/Raobian/bgofs/pkg/common/log"
+	"github.com/Raobian/bgofs/pkg/config"
 	pb "github.com/Raobian/bgofs/pkg/pb"
 
 	"google.golang.org/grpc"
 )
-
-// Address 连接地址
-const Address string = ":8000"
 
 var vc pb.VolumeServiceClient
 var conn *grpc.ClientConn
 
 func connectToServer() pb.VolumeServiceClient {
 	var err error
-	conn, err = grpc.Dial(Address, grpc.WithInsecure())
+	conn, err = grpc.Dial(config.GRPCAddr, grpc.WithInsecure())
 	if err != nil {
 		log.DFATAL("net.Connect err: %v", err)
 	}
@@ -67,7 +64,7 @@ func Upload(fname string) {
 	}
 	defer stream.CloseSend()
 
-	buf := make([]byte, common.CHKSIZE)
+	buf := make([]byte, config.CHKSIZE)
 	var off uint64
 	off = 0
 	for {

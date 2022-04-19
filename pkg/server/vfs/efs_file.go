@@ -3,10 +3,8 @@ package vfs
 import (
 	"log"
 	"os"
+	"sync"
 )
-
-var gfileid = 0
-var gfiles map[string]*EFsFile
 
 type EFsFile struct {
 	FileName string
@@ -14,16 +12,26 @@ type EFsFile struct {
 	ref      int32
 }
 
+type EFsRoot struct {
+	MaxId uint64
+	// fileMap map[string]*EFsFile
+	// mu      sync.Mutex
+	fileMap sync.Map
+}
+
+var Root EFsRoot
+
 func init() {
-	gfiles = make(map[string]*EFsFile)
+	// Root.fileMap = make(map[string]*EFsFile)
 }
 
 func GetFileByName(name string) (*EFsFile, error) {
-	efsf := gfiles[name]
-	if efsf == nil {
+	// efsf := Root.fileMap[name]
+	efsf, ok := Root.fileMap.Load(name)
+	if !ok {
 		return nil, os.ErrNotExist
 	}
-	return efsf, nil
+	return efsf.(*EFsFile), nil
 }
 
 func NewEFsFile(name string) *EFsFile {
@@ -34,7 +42,8 @@ func NewEFsFile(name string) *EFsFile {
 		Pos:      0,
 		ref:      0,
 	}
-	gfiles[name] = efsf
+	// Root.fileMap[name] = efsf
+	Root.fileMap.Store(name, efsf)
 	efsf.Ref()
 	return efsf
 }
@@ -46,12 +55,12 @@ func (f *EFsFile) Ref() {
 func (f *EFsFile) UnRef() {
 	f.ref--
 	if f.ref == 0 {
-		delete(gfiles, f.FileName)
+		// delete(Root.fileMap, f.FileName)
+		Root.fileMap.Delete(f.FileName)
 	}
 }
 
 func (f *EFsFile) Name() string {
-	log.Printf("file :%s", f.FileName)
 	return f.FileName
 }
 

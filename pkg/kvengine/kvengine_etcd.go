@@ -5,13 +5,14 @@ import (
 	"time"
 
 	"github.com/Raobian/bgofs/pkg/common/log"
+	"github.com/Raobian/bgofs/pkg/config"
 	"github.com/coreos/etcd/mvcc/mvccpb"
 
 	"go.etcd.io/etcd/clientv3"
 )
 
 const (
-	Endp           = "127.0.0.1:2379"
+	// Endp           = "127.0.0.1:2379"
 	Timeout        = 5 * time.Second
 	requestTimeout = time.Second
 )
@@ -22,7 +23,7 @@ type KVEngineEtcd struct {
 
 func NewETCDKV() *KVEngineEtcd {
 	config := clientv3.Config{
-		Endpoints:   []string{Endp},
+		Endpoints:   []string{config.EtcdEndPointer},
 		DialTimeout: Timeout,
 	}
 

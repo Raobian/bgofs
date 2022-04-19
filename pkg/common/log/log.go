@@ -21,6 +21,9 @@ const (
 
 func init() {
 	l = logrus.New()
+	SetLevel(INFO)
+	SetTxtFormat()
+	// SetJsonFormat()
 }
 
 func SetLevel(level Level) {
@@ -57,7 +60,17 @@ func SetOutput(file *os.File) {
 }
 
 func SetJsonFormat() {
-	logrus.SetFormatter(&logrus.JSONFormatter{})
+	l.SetFormatter(&logrus.JSONFormatter{})
+}
+
+func SetTxtFormat() {
+	// tfmt := "2006 Jan _2 15:04:05.000000000"
+	tfmt := "2006-01-02 15:04:05.999"
+	l.SetFormatter(&logrus.TextFormatter{
+		TimestampFormat: tfmt,
+		FullTimestamp:   true,
+		ForceColors:     true,
+	})
 }
 
 func Dbug(i ...interface{}) {
